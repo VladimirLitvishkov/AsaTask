@@ -30,6 +30,7 @@ import testtask.dto.UserEditDto;
 import testtask.exceptions.ProposalNotFoundException;
 import testtask.exceptions.UserExistException;
 import testtask.exceptions.UserNotFoundException;
+import testtask.exceptions.ValueNotFoundExceptions;
 import testtask.model.City;
 import testtask.model.PostalCode;
 import testtask.model.PostalID;
@@ -60,22 +61,23 @@ public class TaskServiceImpl implements TaskService {
 	UserConfiguration userConfig;
 
 	@Override
-	public boolean addUser(UserDto userDto) {
+	public UserDto addUser(UserDto userDto) {
 		if (userDto == null) {
-			return false;
+			throw new ValueNotFoundExceptions();
 		}
 		if (userRepository.existsById(userDto.getName())) {
 			throw new UserExistException();
 		}
 		User user = User.builder().name(userDto.getName()).description(userDto.getDescription()).role(userDto.getRole())
 				.build();
-		return userRepository.save(user) != null;
+		userRepository.save(user);
+		return buildUserDto(user);
 	}
 
 	@Override
-	public boolean addProposal(ProposalRequestDto proposalRequestDto) {
+	public ProposalResponseDto addProposal(ProposalRequestDto proposalRequestDto) {
 		if (proposalRequestDto == null) {
-			return false;
+			throw new ValueNotFoundExceptions();
 		}
 		Integer newCityCode = proposalRequestDto.getPostalCode().getStreet().getCity().getCityCode();
 		City newCity = cityRepository.findById(newCityCode).orElse(City.builder().cityCode(newCityCode)
@@ -98,7 +100,8 @@ public class TaskServiceImpl implements TaskService {
 				.userEmail(proposalRequestDto.getUserEmail()).userPhone(proposalRequestDto.getUserPhone())
 				.userMobile(proposalRequestDto.getUserMobile()).insertUser(proposalRequestDto.getInsertUser())
 				.updateUser(proposalRequestDto.getInsertUser()).postalCode(newPostalCode).build();
-		return proposalRepository.save(proposal) != null;
+		proposalRepository.save(proposal);
+		return  buildProposalDto(proposal);
 	}
 
 	@Override

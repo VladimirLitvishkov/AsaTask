@@ -31,7 +31,7 @@ public class TaskController {
 	TaskService service;
 
 	@PostMapping("/user")
-	public boolean addUser(@RequestBody UserDto userDto) {
+	public UserDto addUser(@RequestBody UserDto userDto) {
 		return service.addUser(userDto);
 	}
 	
@@ -41,7 +41,7 @@ public class TaskController {
 	}
 	
 	@PostMapping("/proposal")
-	public boolean addProposal(@RequestBody ProposalRequestDto proposalRequestDto) {
+	public ProposalResponseDto addProposal(@RequestBody ProposalRequestDto proposalRequestDto) {
 		return service.addProposal(proposalRequestDto);
 	}
 	

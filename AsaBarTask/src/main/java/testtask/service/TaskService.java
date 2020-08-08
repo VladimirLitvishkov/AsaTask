@@ -13,9 +13,9 @@ import testtask.dto.UserEditDto;
 
 public interface TaskService {
 	
-	boolean addUser(UserDto userDto);
+	UserDto addUser(UserDto userDto);
 	
-	boolean addProposal(ProposalRequestDto proposalRequestDto);
+	ProposalResponseDto addProposal(ProposalRequestDto proposalRequestDto);
 	
 	ResponseEntity<UserDto> login(String name);
 	
