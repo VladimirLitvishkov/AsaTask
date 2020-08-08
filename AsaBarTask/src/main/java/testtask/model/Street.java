@@ -27,7 +27,7 @@ public class Street implements Serializable{
 	@Id
 	Integer streetCode;
 	@Id
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	City city;
 	String description;
 

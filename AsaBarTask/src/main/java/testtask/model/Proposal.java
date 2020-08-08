@@ -37,7 +37,7 @@ public class Proposal implements Serializable{
 	String userFirstName;
 	String userLastName;
 	String userID;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	PostalCode postalCode;
 	String userPhone;
 	String userMobile;

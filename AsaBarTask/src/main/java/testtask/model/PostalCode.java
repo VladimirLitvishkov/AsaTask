@@ -25,7 +25,7 @@ public class PostalCode implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	@Id
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	Street street;
 	@Id
 	String houseNumber;
